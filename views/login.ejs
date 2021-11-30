@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>文章管理系统-登录</title>
+    <%- include head %>
+</head>
+<body>
+    <div class="form-box">
+        <form id="from" action="/users/login" method="post">
+            <div class="form-group">
+                <input class="form-control user_name" type="text" autocomplete="username" name="username" placeholder="请输入账号">
+                <span class="form-tip user_name_tip">账号输入验证失败，请检查输入格式</span>
+            </div>
+            <div class="form-group">
+                <input class="form-control user_pwd" type="password" autocomplete="new-password" name="password" placeholder="请输入密码">
+                <span class="form-tip user_pwd_tip">密码输入验证失败，请检查输入格式</span>
+            </div>
+            <input type="submit" class="btn btn-default" value="登录">
+        </form>
+        <small>没有账号, <mark><a class="user" href="/regist">立即注册</a></mark></small>
+    </div>
+
+    <script>
+        let userName = document.querySelector('.user_name')
+        let userNameTip = document.querySelector('.user_name_tip')
+        let userPwd = document.querySelector('.user_pwd')
+        let userPwdTip = document.querySelector('.user_pwd_tip')
+        let from = document.querySelector('#from')
+
+        let isUserName = false
+        let isUserPwd = false
+
+        from.onsubmit = function () {
+            let userNameVal = userName.value
+            let userPwdVal = userPwd.value
+
+            
+            if (userNameVal.replace(/(^\s*)|(\s*$)/g, '')) {
+                isUserName = true
+                userName.setAttribute('verify', true)
+                userNameTip.setAttribute('verify', true)
+            } else {
+                isUserName = false
+                userName.setAttribute('verify', false)
+                userNameTip.setAttribute('verify', false)
+            }
+
+            if (userPwdVal.replace(/(^\s*)|(\s*$)/g, '')) {
+                isUserPwd = true
+                userPwd.setAttribute('verify', true)
+                userPwdTip.setAttribute('verify', true)
+            } else {
+                isUserPwd = false
+                userPwd.setAttribute('verify', false)
+                userPwdTip.setAttribute('verify', false)
+            }
+            
+            return isUserPwd && isUserName
+        }
+
+    </script>
+
+</body>
+</html>

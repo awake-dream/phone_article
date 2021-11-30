@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% if (item.timer) { %>
+   <title>文章管理系统-编辑文章</title>
+  <%} else {%>
+    <title>文章管理系统-发布文章</title>
+  <% } %>
+  <%- include head%>
+</head>
+
+<body>
+  <%- include('bar', {username}) %>
+
+  <div class="article">
+    <form action="/article/add" method="post">
+      <input type="hidden" name="id" value="<%=item.timer%>">
+      <input type="hidden" name="page" value="<%=item.page%>">
+      <div class="form-group">
+        <input class="form-control" type="text" placeholder="请输入文章标题" name="title" value="<%=item.title%>">
+      </div>
+      <textarea name="content" class="xheditor"><%=item.content%></textarea>
+      <% if (item.timer) { %>
+       <p><input type="submit" class="btn btn-default" value="修改"></p>
+      <%} else {%>
+        <p><input type="submit" class="btn btn-default" value="发布"></p>
+      <% } %>
+    </form>
+
+  </div>
+
+
+  <script src="/xheditor-1.2.2/jquery/jquery-1.8.3.min.js"></script>
+  <script src="/xheditor-1.2.2/xheditor-1.2.2.min.js"></script>
+  <script src="/xheditor-1.2.2/xheditor_lang/zh-cn.js"></script>
+  <script>
+    $('.xheditor').xheditor({
+      tools: "full",
+      skin: 'default',
+      upImgUrl: '/article/upload',
+      html5Upload: false,
+      upMultiple: 1
+    })
+
+  </script>
+
+
+</body>
+
+</html>

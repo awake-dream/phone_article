@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>文章管理系统-详情</title>
+    <%- include head%>
+</head>
+<body>
+    <%- include('bar', {username}) %>
+
+    <!-- <div class="panel panel-primary">
+        <div class="panel-heading"><%=data.title%></div>
+        <div class="info">
+            <span>作者: <%=data.username%></span>
+            <span>发布时间: <%=data.time%></span>
+        </div>
+
+        <div class="panel-body">
+            <%-data.content%>
+        </div>
+    </div> -->
+
+    <div class="detail">
+        <div class="title"><%=data.title%></div>
+        <div class="info">
+            <span>作者: <%=data.username%></span>
+            <span>发布时间: <%=data.time%></span>
+        </div>
+
+        <div class="content">
+            <%-data.content%>
+        </div>
+    </div>
+    
+</body>
+</html>

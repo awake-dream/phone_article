@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>文章管理系统-首页</title>
+    <%- include head%>
+  </head>
+  <body>
+    <%- include('bar', {username}) %>
+
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-head">
+          <td></td>
+          <td class="no_space">用户名</td>
+          <td>文章标题</td>
+          <td>发布时间</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% data.list.map((item, index) => { %>
+
+          <tr class="row">
+            <td><%= item.username %></td>
+            <td class="no_space"><a class="user" href="/detail?id=<%=item.timer%>"><%= item.title %></a></td>
+            <td><%= item.time %></td>
+            <td>
+              <a class="user text_nobreak" href="/write?id=<%=item.timer%>&page=<%=data.curPage%>">编辑</a>
+              <a class="user text_nobreak" href="/article/delete?id=<%=item.timer%>&page=<%=data.curPage%>">删除</a>
+            </td>
+          </tr>
+        <% }) %> 
+      </tbody>
+    </table>
+
+    <div class="pages">
+      <% for(let i = 0; i < data.total; i++) {%>
+      <a class="<%=i+1%>" href="/?page=<%=i+1%>"><%=i+1%></a>
+      <% } %>
+    </div>
+  </body>
+</html>

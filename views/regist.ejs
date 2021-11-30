@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>文章管理系统-注册</title>
+    <%- include head %>
+</head>
+<body>
+    <div class="form-box">
+        <form id="from" action="/users/regist" method="post">
+            <div class="form-group">
+                <input class="form-control user_name" noBlur="handleUser" autocomplete="username" type="text" name="username" placeholder="请输入账号">
+                <span class="form-tip user_name_tip">账号输入验证失败，请检查输入格式</span>
+            </div>
+            <div class="form-group">
+                <input class="form-control user_pwd" autocomplete="new-password" type="password" name="password" placeholder="请输入密码">
+                <span class="form-tip user_pwd_tip">密码输入验证失败，请检查输入格式</span>
+            </div>
+            <div class="form-group">
+                <input class="form-control user_pwd2" autocomplete="new-password" type="password" name="password2" placeholder="请确认密码">
+                <span class="form-tip user_pwd2_tip">密码不一致，请检查输入格式</span>
+            </div>
+            <input type="submit" class="btn btn-default" value="注册">
+        </form>
+        <small>已有账号, <mark><a class="user" href="/login">立即登录</a></mark></small>
+    </div>
+
+    <script>
+        let userName = document.querySelector('.user_name')
+        let userNameTip = document.querySelector('.user_name_tip')
+        let userPwd = document.querySelector('.user_pwd')
+        let userPwdTip = document.querySelector('.user_pwd_tip')
+        let userPwd2 = document.querySelector('.user_pwd2')
+        let userPwd2Tip = document.querySelector('.user_pwd2_tip')
+        let from = document.querySelector('#from')
+        let isUserName = false
+        let isUserPwd = false
+        let isUserPwd2 = false
+
+        // 账号验证
+        userName.onblur = function (e) {
+            let value = e.target.value
+            if (value.replace(/(^\s*)|(\s*$)/g, '')) {
+                var reg = /^[a-z]+$/i
+                if (!reg.test(value)) {
+                    domSetAttribute([userName, userNameTip], false)
+                    isUserName = false
+                } else {
+                    domSetAttribute([userName, userNameTip], true)
+                    isUserName  = true
+                }
+            } else {
+                domSetAttribute([userName, userNameTip], false)
+                isUserName = false
+            }
+        }
+        
+        // 密码验证
+        userPwd.onblur = function (e) {
+            let value = e.target.value
+            if (value.replace(/(^\s*)|(\s*$)/g, '')) {
+                var reg = /(?!^\\d+$)(?!^[a-zA-Z]+$)(?!^[_#@]+$).{6,}/
+                if (!reg.test(value)) {
+                    domSetAttribute([userPwd, userPwdTip], false)
+                    isUserPwd = false
+                } else {
+                    domSetAttribute([userPwd, userPwdTip], true)
+                    isUserPwd  = true
+                }
+            } else {
+                domSetAttribute([userPwd, userPwdTip], false)
+                isUserPwd = false
+            }
+        }
+
+        // 确认密码验证
+        userPwd2.onchange = function (e) {
+            let value = e.target.value
+            if (value === userPwd.value) {
+                domSetAttribute([userPwd2, userPwd2Tip], true)
+                isUserPwd2 = true
+            } else {
+                domSetAttribute([userPwd2, userPwd2Tip], false)
+                isUserPwd2 = false
+            }
+        }
+
+        let domSetAttribute = function (domList, status) {
+            for (let i = 0; i < domList.length; i++) {
+                domList[i].setAttribute('verify', status)
+            }
+        }
+
+        from.onsubmit = function () {
+            return isUserName && isUserPwd && isUserPwd2
+        }
+    </script>
+
+</body>
+</html>
